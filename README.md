@@ -33,3 +33,29 @@ We need a watcher to refresh our electron application
 > npm install --save bootstrap@4.5.0
 
 > npm install --save react-router-dom
+
+Time to create a firestore database, please create an account in google firebase
+Login to console and create an app, create a database and setup until you see firestore tab taking you to collection system, once done create few collections based on requirement, like `chats` and create few demo documents,
+
+Collection we are using,
+
+```javascript
+
+// in firestore create two bogus document inside collection `chats` so that you can fetch something in the first place to see if connection is correct or not
+
+const chats = {
+    'KwNzwNk8F07WR1SlxzS5' : {
+        admin: 'sdakdjlkajsldkjasd',
+        description: 'Tips and Tricks in C++',
+        image: 'https://banner2.cleanpng.com/20180627/qvc/kisspng-the-legend-of-zelda-majora-s-mask-discord-compute-discord-icon-5b3371b7b55eb4.6840271215300981037429.jpg',
+        name: 'C++ Programming',
+    },
+        'nbL01o7QfRgWp2CVcBcW' : {
+        admin: 'fakjshfjlahsdfljkh6454654564asfd',
+        description: 'Just short discussion about game ',
+        image: 'https://banner2.cleanpng.com/20180627/qvc/kisspng-the-legend-of-zelda-majora-s-mask-discord-compute-discord-icon-5b3371b7b55eb4.6840271215300981037429.jpg',
+        name: 'About Games',
+    }
+}
+
+```
