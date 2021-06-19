@@ -1,23 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import App from './App';
 
-export default function App() {
-
-    const title = 'Hello, World'
-    const enhancedTitle = title + ' - Reach App!'
-
-    const sendNotification = () => {
-        electron.notificationApi.sendNotification('This is my custom message, Fixed the context bridge')
-    }
-
-    return (
-        <>
-            <h1>{enhancedTitle}</h1>
-            <button onClick={sendNotification}>Send Notification</button>
-        </>
-    )
-
-}
+import 'bootstrap/dist/css/bootstrap.min.css'
+import './index.scss'
 
 ReactDOM
     .render(<App />, document.getElementById('Echat'))
