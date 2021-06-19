@@ -9,7 +9,7 @@ import { fetchChats } from '../actions/chats-actions';
 export default function HomeView() {
 
     const dispatch = useDispatch()
-    const chats = useSelector((state) => state.chats.items)
+    const chats = useSelector(({chats}) => chats.items)
 
     // will call only once
     useEffect(() => {
@@ -19,12 +19,11 @@ export default function HomeView() {
     return (
         <div className="row no-gutters fh">
             <div className="col-3 fh">
-                {JSON.stringify(chats)}
-                <JoinChatsList />
+                <JoinChatsList chats={chats} />
             </div>
             <div className="col-9 fh">
                 <ViewTitle text="Choose any channel" />
-                <AvailableChatsList />
+                <AvailableChatsList chats={chats} />
             </div>
         </div>
     )
