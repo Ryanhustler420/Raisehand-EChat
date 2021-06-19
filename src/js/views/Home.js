@@ -1,21 +1,17 @@
 import React from 'react';
-import Navbar from './../components/Navbar';
 import JoinChats from './../components/JoinChats';
-import AvailableChats from './../components/AvailableChats';
 import ViewTitle from './../components/shared/ViewTitle';
+import AvailableChats from './../components/AvailableChats';
 
-export default function Home() {
+export default function HomeView() {
     return (
-        <div className='content-wrapper'>
-            <Navbar />
-            <div className="row no-gutters fh">
-                <div className="col-3 fh">
-                    <JoinChats />
-                </div>
-                <div className="col-9 fh">
-                    <ViewTitle />
-                    <AvailableChats />
-                </div>
+        <div className="row no-gutters fh">
+            <div className="col-3 fh">
+                <JoinChats />
+            </div>
+            <div className="col-9 fh">
+                <ViewTitle />
+                <AvailableChats />
             </div>
         </div>
     )

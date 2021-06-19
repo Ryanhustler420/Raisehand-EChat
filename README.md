@@ -31,3 +31,5 @@ We need a watcher to refresh our electron application
 > npm install --save-dev electron-reload
 
 > npm install --save bootstrap@4.5.0
+
+> npm install --save react-router-dom
