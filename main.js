@@ -21,8 +21,8 @@ function createWindow() {
     if (isDevelopment) mainWindow.webContents.openDevTools()
     mainWindow.loadURL(`file://${__dirname}/index.html`)
 
-    const menuTemplate = Menu.buildFromTemplate([{label: 'File', submenu: [ { label: 'Exit', click: () => { app.exit() } } ]}])
-    Menu.setApplicationMenu(menuTemplate);
+    // const menuTemplate = Menu.buildFromTemplate([{label: 'File', submenu: [ { label: 'Exit', click: () => { app.exit() } } ]}])
+    // Menu.setApplicationMenu(menuTemplate);
 
     mainWindow.on('closed', () => {mainWindow = null});
 }

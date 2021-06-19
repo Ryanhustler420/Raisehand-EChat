@@ -3,8 +3,7 @@ import React from 'react';
 import Navbar from './components/Navbar';
 import HomeView from './views/HomeView';
 import ChatView from './views/ChatView';
-import LoginView from './views/LoginView';
-import RegisterView from './views/RegisterView';
+import WelcomeView from './views/WelcomeView';
 import SettingsView from './views/SettingsView';
 
 import { HashRouter as Router, Switch, Route } from 'react-router-dom'
@@ -20,21 +19,17 @@ export default function App() {
                 <Navbar />
                 <div className='content-wrapper'>
                     <Switch>
-                        <Route path="/settings">
-                            <SettingsView />
+                        <Route path="/" exact>
+                            <WelcomeView />
                         </Route>
-                        <Route path="/login">
-                            <LoginView />
-                        </Route>
-                        <Route path="/register">
-                            <RegisterView />
+                        <Route path="/home">
+                            <HomeView />
                         </Route>
                         <Route path="/chat/:id">
                             <ChatView />
                         </Route>
-                        {/* "/" should be last route */}
-                        <Route path="/" exact>
-                            <HomeView />
+                        <Route path="/settings">
+                            <SettingsView />
                         </Route>
                     </Switch>
                 </div>
