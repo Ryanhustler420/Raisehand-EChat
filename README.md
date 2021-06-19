@@ -75,3 +75,4 @@ NOTE: Restart your webpack since you have alter the webpack and added new plugin
 
 > npm install --save redux react-redux
 > npm install --save redux-thunk
+> npm install --save react-hook-form
