@@ -72,3 +72,5 @@ const chats = {
 You need to use webpack to provide process.env data into react, there is no stright way to do this.
 
 NOTE: Restart your webpack since you have alter the webpack and added new plugin into.
+
+> npm install --save redux react-redux
