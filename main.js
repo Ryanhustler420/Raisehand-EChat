@@ -10,9 +10,10 @@ function createWindow() {
         backgroundColor: 'white',
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'),
-            nodeIntegration: true,
-            contextIsolation: false,
-            enableRemoteModule: true,
+            nodeIntegration: true, // allow html to access node API
+            contextIsolation: false, // ensure that both your preload script & electron internal logic run in sparate context
+            enableRemoteModule: true, // Allow renderer to access Electron Native API which only get access in main thread
+            worldSafeExecuteJavaScript: true, // Sanitize JS code
         }
     })
 
