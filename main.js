@@ -1,3 +1,4 @@
+const path = require('path');
 const { app, BrowserWindow, Menu, Notification } = require('electron')
 
 let mainWindow;
@@ -8,7 +9,10 @@ function createWindow() {
         height: 800,
         backgroundColor: 'white',
         webPreferences: {
-            nodeIntegration: true
+            preload: path.join(__dirname, 'preload.js'),
+            nodeIntegration: true,
+            contextIsolation: false,
+            enableRemoteModule: true,
         }
     })
 
