@@ -5,14 +5,12 @@ export const registerUser = formData => dispatch =>
         .then(_ => dispatch({ type: 'AUTH_REGISTER_SUCCESS' }))
 
 export const listenToAuthChanges = () => dispatch => {
-    dispatch({ type: 'AUTH_ON_INIT' })
+    dispatch({ type: 'AUTH_ON_INIT', user: null })
     API.onAuthStateChange((authUser) => {
         if (authUser) {
-            dispatch({ type: 'AUTH_ON_SUCCESS' })
-            console.log('We are authenticated');
+            dispatch({ type: 'AUTH_ON_SUCCESS', user: authUser })
         } else {
-            dispatch({ type: 'AUTH_ON_ERROR' })
-            console.log('We are not-authenticated');
+            dispatch({ type: 'AUTH_ON_ERROR', user: null })
         }
     })
 }
