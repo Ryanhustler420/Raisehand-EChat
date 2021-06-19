@@ -1,6 +1,7 @@
 const path = require('path');
 const { app, BrowserWindow, Menu, Notification } = require('electron')
 
+const isDevelopment = !app.isPackaged
 let mainWindow;
 
 function createWindow() {
@@ -17,7 +18,7 @@ function createWindow() {
         }
     })
 
-    mainWindow.webContents.openDevTools()
+    if (isDevelopment) mainWindow.webContents.openDevTools()
     mainWindow.loadURL(`file://${__dirname}/index.html`)
 
     const menuTemplate = Menu.buildFromTemplate([{label: 'File', submenu: [ { label: 'Exit', click: () => { app.exit() } } ]}])
@@ -44,3 +45,5 @@ app.on('activate', (e) => {
         createWindow();
     }
 })
+
+if (isDevelopment) require('electron-reload')(__dirname)

@@ -25,3 +25,7 @@ Add new script in `package.json`
 Add new script for both script together in one, (You need one terminal now on)
 
 > Run `npm start dev`
+
+We need a watcher to refresh our electron application
+
+> npm install --save-dev electron-reload

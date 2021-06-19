@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
   mode: 'development',
   entry: './src/js/index.js',
-  devtool: 'inline-source-map',
+  devtool: 'inline-source-map', // this is required for dubbuggin purposes
   target: 'electron-renderer',
   module: {
     rules: [
