@@ -59,3 +59,10 @@ const chats = {
 }
 
 ```
+
+> Go to project setting on left cornor of firebase console
+> Click on add new web app
+> Name your project and click next and it will show some config
+> Please make sure you open your db rules and allow read/write for all users
+
+> npm install --save firebase
