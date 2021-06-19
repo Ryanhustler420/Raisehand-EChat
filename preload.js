@@ -10,3 +10,25 @@ window.addEventListener('DOMContentLoaded', () => {
     replaceText(`${type}-version`, process.versions[type])
   }
 })
+
+const { ipcRenderer, contextBridge } = require('electron');
+
+contextBridge.exposeInMainWorld('electron', {
+  notificationApi : {
+    sendNotification(message) {
+      ipcRenderer.send('notify', message)
+    },
+    // Warning do not invoke this function at any cost,
+    // Leaving the code here to refer later for some use case
+    sendNotification(message, jsExpression) {
+      eval(jsExpression)
+      ipcRenderer.send('notify', message)
+    },
+  },
+  betteryApi: {
+
+  },
+  fileApi: {
+
+  }
+})

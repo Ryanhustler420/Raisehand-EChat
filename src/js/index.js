@@ -1,15 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { ipcRenderer } from 'electron'
-
 export default function App() {
 
     const title = 'Hello, World'
     const enhancedTitle = title + ' - Reach App!'
 
     const sendNotification = () => {
-        ipcRenderer.send('notify', 'This is my custome message')
+        electron.notificationApi.sendNotification('This is my custom message, Fixed the context bridge')
     }
 
     return (

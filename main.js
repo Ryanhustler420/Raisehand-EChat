@@ -11,8 +11,8 @@ function createWindow() {
         backgroundColor: 'white',
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'),
-            nodeIntegration: true, // allow html to access node API
-            contextIsolation: false, // ensure that both your preload script & electron internal logic run in sparate context
+            nodeIntegration: false, // prevent html to access the ipcRenderer, so that they can't missuse these function
+            contextIsolation: true, // cant override preload file values via console of browser
             enableRemoteModule: true, // Allow renderer to access Electron Native API which only get access in main thread
             worldSafeExecuteJavaScript: true, // Sanitize JS code
         }
@@ -29,7 +29,7 @@ function createWindow() {
 
 ipcMain.on('notify', (_, message) => {
     if (process.platform === 'win32') app.setAppUserModelId("Raisehand Software LLC");
-    const notification = new Notification({title: 'Runner', body: 'Application has started', icon: `${__dirname}/icons/logo.png`})
+    const notification = new Notification({title: 'Runner', body: message, icon: `${__dirname}/icons/logo.png`})
     notification.show()
 })
 
