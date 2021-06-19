@@ -76,3 +76,17 @@ NOTE: Restart your webpack since you have alter the webpack and added new plugin
 > npm install --save redux react-redux
 > npm install --save redux-thunk
 > npm install --save react-hook-form
+
+Since we are successfully register a new user via firebase api, we also need to create a model document inside db which represent user details,
+
+```javascript
+
+const uProfile = {
+        uid: user.uid, 
+        username: 'some@44', 
+        email: 'email.@domain.com', 
+        avatar: 'https://placeholder.py/125x150',
+        joinedChats: []
+    }
+
+```
