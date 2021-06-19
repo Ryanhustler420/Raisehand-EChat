@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from './components/Navbar';
 import HomeView from './views/HomeView';
+import ChatView from './views/ChatView';
 import LoginView from './views/LoginView';
 import RegisterView from './views/RegisterView';
 import SettingsView from './views/SettingsView';
@@ -21,6 +22,9 @@ export default function App() {
                     </Route>
                     <Route path="/register">
                         <RegisterView />
+                    </Route>
+                    <Route path="/chat">
+                        <ChatView />
                     </Route>
                     {/* "/" should be last route */}
                     <Route path="/" exact>
