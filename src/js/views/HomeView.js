@@ -3,14 +3,17 @@ import ViewTitle from '../components/shared/ViewTitle';
 import JoinChatsList from '../components/JoinChatsList';
 import AvailableChatsList from '../components/AvailableChatsList';
 
-import { fetchChats } from './../api/chats_apis';
+import { useDispatch } from 'react-redux';
+import { fetchChats } from '../actions/chats-actions';
 
 export default function HomeView() {
 
+    const dispatch = useDispatch()
+
     // will call only once
     useEffect(() => {
-        fetchChats().then(console.log);
-    }, [])
+        dispatch(fetchChats())
+    }, [dispatch])
 
     return (
         <div className="row no-gutters fh">
