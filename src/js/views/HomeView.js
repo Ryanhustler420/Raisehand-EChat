@@ -10,7 +10,7 @@ export default function HomeView() {
                 <JoinChatsList />
             </div>
             <div className="col-9 fh">
-                <ViewTitle />
+                <ViewTitle text="Choose any channel" />
                 <AvailableChatsList />
             </div>
         </div>

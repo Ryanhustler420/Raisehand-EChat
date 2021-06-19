@@ -23,7 +23,7 @@ export default function App() {
                     <Route path="/register">
                         <RegisterView />
                     </Route>
-                    <Route path="/chat">
+                    <Route path="/chat/:id">
                         <ChatView />
                     </Route>
                     {/* "/" should be last route */}
