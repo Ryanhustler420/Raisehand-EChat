@@ -66,3 +66,9 @@ const chats = {
 > Please make sure you open your db rules and allow read/write for all users
 
 > npm install --save firebase
+
+> npm install dotenv-webpack --save-dev
+
+You need to use webpack to provide process.env data into react, there is no stright way to do this.
+
+NOTE: Restart your webpack since you have alter the webpack and added new plugin into.
