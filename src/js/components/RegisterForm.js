@@ -1,12 +1,15 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { registerUser } from '../actions/auth-actions';
 
 export default function RegisterForm() {
 
     const { register, handleSubmit } = useForm()
+    const dispatch = useDispatch()
 
     const onSubmit = data => {
-        alert(JSON.stringify(data))
+        dispatch(registerUser(data))
     }
 
     return (
