@@ -1,12 +1,11 @@
 import React from 'react';
-import HomeView from './views/Home';
 import Navbar from './components/Navbar';
+import HomeView from './views/HomeView';
+import LoginView from './views/LoginView';
+import RegisterView from './views/RegisterView';
+import SettingsView from './views/SettingsView';
 
-import {
-    HashRouter as Router,
-    Switch,
-    Route
-} from 'react-router-dom'
+import { HashRouter as Router, Switch, Route } from 'react-router-dom'
 
 export default function App() {
     return (
@@ -15,16 +14,16 @@ export default function App() {
             <div className='content-wrapper'>
                 <Switch>
                     <Route path="/settings">
-                        <h1>I am setting view</h1>
+                        <SettingsView />
                     </Route>
                     <Route path="/login">
-                        <h1>I am login view</h1>
+                        <LoginView />
                     </Route>
                     <Route path="/register">
-                        <h1>I am register view</h1>
+                        <RegisterView />
                     </Route>
                     {/* "/" should be last route */}
-                    <Route path="/">
+                    <Route path="/" exact>
                         <HomeView />
                     </Route>
                 </Switch>
