@@ -20,4 +20,6 @@ export async function register({email, password, username, avatar}) {
     }
 }
 
+export const logout = () => firebase.auth().signOut()
+
 export const onAuthStateChange = onAuth => firebase.auth().onAuthStateChanged(onAuth)
