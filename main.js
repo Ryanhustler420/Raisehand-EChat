@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu } = require('electron')
+const { app, BrowserWindow, Menu, Notification } = require('electron')
 
 let mainWindow;
 
@@ -21,7 +21,12 @@ function createWindow() {
     mainWindow.on('closed', () => {mainWindow = null});
 }
 
-app.whenReady().then(createWindow)
+app.whenReady().then(() => {
+    createWindow()
+    if (process.platform === 'win32') app.setAppUserModelId("Raisehand Software LLC");
+    const notification = new Notification({title: 'Runner', body: 'Application has started', icon: `${__dirname}/icons/logo.png`})
+    notification.show()
+})
 app.on('ready', (e) => {})
 app.on('window-all-closed', (e) => {
     if(process.platform !== 'darwin') {
