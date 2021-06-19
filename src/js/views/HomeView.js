@@ -3,12 +3,13 @@ import ViewTitle from '../components/shared/ViewTitle';
 import JoinChatsList from '../components/JoinChatsList';
 import AvailableChatsList from '../components/AvailableChatsList';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchChats } from '../actions/chats-actions';
 
 export default function HomeView() {
 
     const dispatch = useDispatch()
+    const chats = useSelector((state) => state.chats.items)
 
     // will call only once
     useEffect(() => {
@@ -18,6 +19,7 @@ export default function HomeView() {
     return (
         <div className="row no-gutters fh">
             <div className="col-3 fh">
+                {JSON.stringify(chats)}
                 <JoinChatsList />
             </div>
             <div className="col-9 fh">

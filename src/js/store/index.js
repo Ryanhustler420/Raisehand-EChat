@@ -1,4 +1,5 @@
-import {createStore, applyMiddleware} from 'redux'
+import { createStore, applyMiddleware, combineReducers } from 'redux'
+import chatReducer from '../reducers/chats-reducers'
 import thunkMiddleware from 'redux-thunk'
 
 // We store all the data to this store,
@@ -7,17 +8,14 @@ import thunkMiddleware from 'redux-thunk'
 // Of this store, this is a central place for data parking
 export default function configureStore() {
 
-    const middlewares = [ 
+    const middlewares = [
         thunkMiddleware,
     ]
 
-    const store = createStore(() => {
-        return {
-            message: 'Hello, World',
-            data1: 'Just some testing data',
-            data2: 'Just some testing data 2',
-        }
-    }, applyMiddleware(...middlewares))
+    const store = createStore(
+        combineReducers({ chats: chatReducer }),
+        applyMiddleware(...middlewares)
+    )
 
     return store;
 }
