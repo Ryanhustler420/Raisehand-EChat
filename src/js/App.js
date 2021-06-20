@@ -16,9 +16,22 @@ function EChat() {
 
     const dispatch = useDispatch();
     const isChecking = useSelector(({ auth }) => auth.isChecking);
+ 
+    const alertOnlineStatus = () =>
+        alert(navigator.onLine ? 'Online' : 'Offline')
 
     useEffect(() => {
-        dispatch(listenToAuthChanges())
+        const unsubscribeAuthStateListener = dispatch(listenToAuthChanges())
+        window.addEventListener('online', alertOnlineStatus)
+        window.addEventListener('offline', alertOnlineStatus)
+
+        // will be called when this componet gets destroyed
+        return function() {
+            unsubscribeAuthStateListener();
+            window.removeEventListener('online', alertOnlineStatus)
+            window.removeEventListener('offline', alertOnlineStatus)
+        }
+
     }, [dispatch])
 
     if (isChecking) { return <Loading /> }
