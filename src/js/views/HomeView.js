@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchChats } from '../actions/chats-actions';
 import { withBaseLayout } from './../Hoc/BaseLayout';
 
+import Notifications from '../utils/Notifications';
+
 function HomeView() {
 
     const dispatch = useDispatch()
@@ -14,6 +16,7 @@ function HomeView() {
 
     // will call only once
     useEffect(() => {
+        Notifications.setup()
         dispatch(fetchChats())
     }, [dispatch])
 

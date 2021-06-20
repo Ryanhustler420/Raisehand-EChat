@@ -3,6 +3,8 @@
  * NOTE: Do not mess with data which are going to receive by any reducer, BAD PRACTICE
  */
 
+import Notifications from "../../utils/Notifications";
+
 /** (param) store:: get state of the application */
 /** (param) next:: helps to proceed further in the funnel to next middleware when get call */
 /** (param) action:: which we are dispatching  */
@@ -12,8 +14,13 @@ export default (store) => (next) => (action) => {
 
     switch (action.type) {
         case 'APP_IS_ONLINE':
-        case 'APP_IS_OFFLINE':
-            alert('Displaying Notification!')
+        case 'APP_IS_OFFLINE': {
+            Notifications
+                .show({
+                    title: 'Connection Status',
+                    body: action.isOnline ? 'Online' : 'Offline'
+                });
+        }
     }
     next(action) // goes to next middleware, if has any!
 }
