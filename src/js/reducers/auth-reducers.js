@@ -1,25 +1,33 @@
 import { combineReducers } from "redux"
 
-function loginReducer(state = { error: null }, action) {
-    switch (action.type) {
-        case 'AUTH_LOGIN_INIT':
-            return { error: null }
-        case 'AUTH_LOGIN_ERROR':
-            return { error: action.error }
-        default:
-            return state;
+function createLoginReducer() {
+    const error = (state = null, action) => {
+        switch (action.type) {
+            case 'AUTH_LOGIN_INIT':
+                return null;
+            case 'AUTH_LOGIN_ERROR':
+                return action.error
+            default:
+                return state;
+        }
     }
+
+    return combineReducers({error})
 }
 
-function registerReducer(state = { error: null }, action) {
-    switch (action.type) {
-        case 'AUTH_REGISTER_INIT':
-            return { error: null }
-        case 'AUTH_REGISTER_ERROR':
-            return { error: action.error }
-        default:
-            return state;
+function createRegisterReducer() {
+    const error = (state = null, action) => {
+        switch (action.type) {
+            case 'AUTH_REGISTER_INIT':
+                return null
+            case 'AUTH_REGISTER_ERROR':
+                return action.error
+            default:
+                return state;
+        }
     }
+
+    return combineReducers({error})
 }
 
 function authReducer() {
@@ -55,8 +63,8 @@ function authReducer() {
     return combineReducers({
         user,
         isChecking,
-        login: loginReducer,
-        register: registerReducer,
+        login: createLoginReducer(),
+        register: createRegisterReducer(),
     })
 }
 
