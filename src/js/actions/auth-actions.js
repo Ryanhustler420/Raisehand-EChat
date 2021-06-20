@@ -20,9 +20,10 @@ export const loginUser = formData => dispatch => {
 
 export const listenToAuthChanges = () => dispatch => {
     dispatch({ type: 'AUTH_ON_INIT', user: null })
-    API.onAuthStateChange((authUser) => {
+    API.onAuthStateChange(async (authUser) => {
         if (authUser) {
-            dispatch({ type: 'AUTH_ON_SUCCESS', user: authUser })
+            const userProfile = await API.getUserProfileDocument(authUser.uid)
+            dispatch({ type: 'AUTH_ON_SUCCESS', user: userProfile })
         } else {
             dispatch({ type: 'AUTH_ON_ERROR', user: null })
         }
