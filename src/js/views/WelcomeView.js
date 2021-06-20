@@ -8,7 +8,7 @@ export default function WelcomeView() {
 
     // useSelector(({auth}) => {}) here auth is the key from store 
 
-    const user = useSelector(({auth}) => auth.user)
+    const user = useSelector(({ auth }) => auth.user)
 
     const [isLoginView, setIsLogin] = useState(true);
     const optInText = isLoginView ?

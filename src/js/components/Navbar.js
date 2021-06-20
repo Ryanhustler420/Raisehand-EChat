@@ -1,30 +1,23 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom'
+import BackButton from './shared/BackButton';
+
+import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../actions/auth-actions'
 
-export default function Navbar() {
+export default function Navbar({ canGoBack }) {
 
-    const history = useHistory()
     const dispatch = useDispatch()
-
     const user = useSelector(({ auth }) => auth.user)
 
     return (
         <div className="chat-navbar">
             <nav className="chat-navbar-inner">
                 <div className="chat-navbar-inner-left">
-                    <button
-                        onClick={() => history.goBack()}
-                        className="btn btn-outline-primary">Back</button>
-                    <Link
-                        to="/settings"
-                        className="btn btn-outline-success ml-2">Settings</Link>
+                    <BackButton canGoBack={canGoBack} />
+                    <Link to="/settings" className="btn btn-outline-success ml-2">Settings</Link>
                 </div>
                 <div className="chat-navbar-inner-right">
-                    {/* <Link
-                        to="/"
-                        className="btn btn-outline-success ml-2">Login</Link> */}
                     {user &&
                         <>
                             <img className="avatar mr-2" src={user.avatar}></img>

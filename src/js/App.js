@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 
-import Navbar from './components/Navbar';
 import HomeView from './views/HomeView';
 import ChatView from './views/ChatView';
 import WelcomeView from './views/WelcomeView';
@@ -26,7 +25,6 @@ function EChat() {
 
     return (
         <Router>
-            <Navbar />
             <ContentWrapper>
                 <Switch>
                     <Route path="/" exact>
