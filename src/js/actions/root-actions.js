@@ -13,7 +13,10 @@ export const listenToConnectionChanges = () => dispatch => {
     window.addEventListener('online', connectionHandler)
     window.addEventListener('offline', connectionHandler)
 
-    window.removeEventListener('online', connectionHandler)
-    window.removeEventListener('offline', connectionHandler)
+    // will be called when this componet gets destroyed
+    return () => {
+        window.removeEventListener('online', connectionHandler)
+        window.removeEventListener('offline', connectionHandler)
+    }
 
 }

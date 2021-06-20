@@ -17,18 +17,20 @@ function EChat() {
 
     const dispatch = useDispatch();
     const isChecking = useSelector(({ auth }) => auth.isChecking);
- 
+    const isOnline = useSelector(({ root }) => root.isOnline);
+
     useEffect(() => {
         const unsubscribeAuthStateListener = dispatch(listenToAuthChanges())
-        const unsubscribeConnectionChanges = dispatch(listenToConnectionChanges)
+        const unsubscribeConnectionChanges = dispatch(listenToConnectionChanges())
 
         // will be called when this componet gets destroyed
-        return function() {
+        return function () {
             unsubscribeAuthStateListener();
             unsubscribeConnectionChanges();
         }
     }, [dispatch])
 
+    if (!isOnline) { return <Loading message="Application has been discounnected from the internet" /> }
     if (isChecking) { return <Loading /> }
 
     return (
