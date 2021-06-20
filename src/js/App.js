@@ -7,22 +7,27 @@ import WelcomeView from './views/WelcomeView';
 import SettingsView from './views/SettingsView';
 
 import { HashRouter as Router, Switch, Route } from 'react-router-dom'
-import { Provider, useDispatch } from 'react-redux';
-import configureStore from './store';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { listenToAuthChanges } from './actions/auth-actions';
+import StoreProvider from './store/StoreProvider';
+import Loading from './components/shared/Loading';
 
 function EChat() {
 
     const dispatch = useDispatch();
+    const isChecking = useSelector(({auth}) => auth.isChecking);
 
     useEffect(() => {
         dispatch(listenToAuthChanges())
     }, [dispatch])
 
+    if (isChecking) { return <Loading /> }
+
     return (
         <Router>
             <Navbar />
-            <div className='content-wrapper'>
+            <ContentWrapper>
                 <Switch>
                     <Route path="/" exact>
                         <WelcomeView />
@@ -37,16 +42,17 @@ function EChat() {
                         <SettingsView />
                     </Route>
                 </Switch>
-            </div>
+            </ContentWrapper>
         </Router>
     )
 }
 
-const store = configureStore();
+const ContentWrapper = ({ children }) => <div className='content-wrapper'>{children}</div>
+
 export default function App() {
     return (
-        <Provider store={store}>
+        <StoreProvider>
             <EChat />
-        </Provider>
+        </StoreProvider>
     )
 }
