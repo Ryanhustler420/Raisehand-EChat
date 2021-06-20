@@ -9,6 +9,7 @@ export default function SettingButton() {
             {
                 !location.pathname.includes('settings') &&
                 !location.pathname.includes('chat') &&
+                !location.pathname.includes('chatCreate') &&
                 (<Link to="/settings" className="btn btn-outline-success">Settings</Link>)
             }
         </>
