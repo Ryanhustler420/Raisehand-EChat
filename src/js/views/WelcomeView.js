@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import LoginForm from './../components/LoginForm';
 import RegisterForm from './../components/RegisterForm';
+import Loading from './../components/shared/Loading';
 
 export default function WelcomeView() {
 
@@ -16,9 +17,7 @@ export default function WelcomeView() {
         ['Need an account?', 'Register'] :
         ['Already Registered?', 'Login']
 
-    if (isChecking) {
-        return <h1>Checking/Loading...</h1>
-    }
+    if (isChecking) { return <Loading /> }
 
     if (user) {
         return <Redirect to="/home" />
