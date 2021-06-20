@@ -8,6 +8,7 @@ import SettingsView from './views/SettingsView';
 import { HashRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 
+import { listenToConnectionChanges } from './actions/root-actions';
 import { listenToAuthChanges } from './actions/auth-actions';
 import StoreProvider from './store/StoreProvider';
 import Loading from './components/shared/Loading';
@@ -17,21 +18,15 @@ function EChat() {
     const dispatch = useDispatch();
     const isChecking = useSelector(({ auth }) => auth.isChecking);
  
-    const alertOnlineStatus = () =>
-        alert(navigator.onLine ? 'Online' : 'Offline')
-
     useEffect(() => {
         const unsubscribeAuthStateListener = dispatch(listenToAuthChanges())
-        window.addEventListener('online', alertOnlineStatus)
-        window.addEventListener('offline', alertOnlineStatus)
+        const unsubscribeConnectionChanges = dispatch(listenToConnectionChanges)
 
         // will be called when this componet gets destroyed
         return function() {
             unsubscribeAuthStateListener();
-            window.removeEventListener('online', alertOnlineStatus)
-            window.removeEventListener('offline', alertOnlineStatus)
+            unsubscribeConnectionChanges();
         }
-
     }, [dispatch])
 
     if (isChecking) { return <Loading /> }
