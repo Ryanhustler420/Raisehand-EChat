@@ -1,7 +1,6 @@
 import React from 'react';
 import BackButton from './shared/BackButton';
-
-import { Link } from 'react-router-dom'
+import SettingButton from './shared/SettingButton';
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../actions/auth-actions'
 
@@ -15,7 +14,7 @@ export default function Navbar({ canGoBack }) {
             <nav className="chat-navbar-inner">
                 <div className="chat-navbar-inner-left">
                     <BackButton canGoBack={canGoBack} />
-                    <Link to="/settings" className="btn btn-outline-success ml-2">Settings</Link>
+                    <SettingButton />
                 </div>
                 <div className="chat-navbar-inner-right">
                     {user &&
