@@ -7,40 +7,46 @@ import WelcomeView from './views/WelcomeView';
 import SettingsView from './views/SettingsView';
 
 import { HashRouter as Router, Switch, Route } from 'react-router-dom'
-import { Provider } from 'react-redux';
+import { Provider, useDispatch } from 'react-redux';
 import configureStore from './store';
 import { listenToAuthChanges } from './actions/auth-actions';
 
+function EChat() {
 
-const store = configureStore();
-
-export default function App() {
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        store.dispatch(listenToAuthChanges())
-    }, [])
+        dispatch(listenToAuthChanges())
+    }, [dispatch])
 
     return (
+        <Router>
+            <Navbar />
+            <div className='content-wrapper'>
+                <Switch>
+                    <Route path="/" exact>
+                        <WelcomeView />
+                    </Route>
+                    <Route path="/home">
+                        <HomeView />
+                    </Route>
+                    <Route path="/chat/:id">
+                        <ChatView />
+                    </Route>
+                    <Route path="/settings">
+                        <SettingsView />
+                    </Route>
+                </Switch>
+            </div>
+        </Router>
+    )
+}
+
+const store = configureStore();
+export default function App() {
+    return (
         <Provider store={store}>
-            <Router>
-                <Navbar />
-                <div className='content-wrapper'>
-                    <Switch>
-                        <Route path="/" exact>
-                            <WelcomeView />
-                        </Route>
-                        <Route path="/home">
-                            <HomeView />
-                        </Route>
-                        <Route path="/chat/:id">
-                            <ChatView />
-                        </Route>
-                        <Route path="/settings">
-                            <SettingsView />
-                        </Route>
-                    </Switch>
-                </div>
-            </Router>
+            <EChat />
         </Provider>
     )
 }
