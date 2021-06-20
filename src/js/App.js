@@ -6,7 +6,7 @@ import ChatView from './views/ChatView';
 import WelcomeView from './views/WelcomeView';
 import SettingsView from './views/SettingsView';
 
-import { HashRouter as Router, Switch, Route } from 'react-router-dom'
+import { HashRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 
 import { listenToAuthChanges } from './actions/auth-actions';
@@ -16,7 +16,7 @@ import Loading from './components/shared/Loading';
 function EChat() {
 
     const dispatch = useDispatch();
-    const isChecking = useSelector(({auth}) => auth.isChecking);
+    const isChecking = useSelector(({ auth }) => auth.isChecking);
 
     useEffect(() => {
         dispatch(listenToAuthChanges())
@@ -32,18 +32,32 @@ function EChat() {
                     <Route path="/" exact>
                         <WelcomeView />
                     </Route>
-                    <Route path="/home">
+                    <AuthRoute path="/home">
                         <HomeView />
-                    </Route>
-                    <Route path="/chat/:id">
+                    </AuthRoute>
+                    <AuthRoute path="/chat/:id">
                         <ChatView />
-                    </Route>
-                    <Route path="/settings">
+                    </AuthRoute>
+                    <AuthRoute path="/settings">
                         <SettingsView />
-                    </Route>
+                    </AuthRoute>
                 </Switch>
             </ContentWrapper>
         </Router>
+    )
+}
+
+// This HOC is responsible for checking the user auth state
+// So the they can access the auth specific routes, like /home or /chat/:id
+function AuthRoute({ children, ...rest }) {
+    const user = useSelector(({ auth }) => auth.user)
+    const onlyChild = React.Children.only(children)
+
+    return (<Route
+        {...rest} // Providing the props as it is to children
+        render={props =>
+            user ? React.cloneElement(onlyChild, { ...rest, ...props }) :
+                <Redirect to="/" />} />
     )
 }
 

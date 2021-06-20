@@ -40,7 +40,11 @@ export default function LoginForm() {
                         className="form-control"
                         id="password" />
                 </div>
-                {error && <div className="alert alert-danger small">{error.message}</div>}
+                {error && <div className="alert alert-danger small">
+                    {
+                        error.message ? (error.message) : ('Please fill the form')
+                    }
+                </div>}
                 <button
                     type="submit"
                     className="btn btn-outline-primary">Login</button>
