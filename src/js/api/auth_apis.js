@@ -18,13 +18,19 @@ export const getUserProfileDocument = uid =>
 export async function register({ email, password, username, avatar }) {
     try {
         const { user } = await firebase.auth().createUserWithEmailAndPassword(email, password)
-        await createUserProfileDocument({ uid: user.uid, username, email, avatar, joinedChats: [] })
+        const userProfileDocument = { uid: user.uid, username, email, avatar, joinedChats: [] }
+        await createUserProfileDocument(userProfileDocument);
+        return userProfileDocument
     } catch (error) {
         return Promise.reject(error.message)
     }
 }
 
-export const login = ({ email, password }) => firebase.auth().signInWithEmailAndPassword(email, password)
+export const login = async ({ email, password }) => {
+    const { user } = await firebase.auth().signInWithEmailAndPassword(email, password)
+    const userProfileDocument = await getUserProfileDocument(user.uid);
+    return userProfileDocument
+}
 
 export const logout = () => firebase.auth().signOut()
 
