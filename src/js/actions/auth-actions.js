@@ -4,18 +4,21 @@ export const registerUser = formData => dispatch => {
     dispatch({ type: 'AUTH_REGISTER_INIT' })
     return API.register(formData)
         .then(_ => dispatch({ type: 'AUTH_REGISTER_SUCCESS' }))
+        .catch(reason => dispatch({ type: 'AUTH_REGISTER_ERROR', error: reason }))
 }
 
 export const logout = () => dispatch => {
     dispatch({ type: 'AUTH_LOGOUT_INIT' })
     return API.logout()
         .then(_ => dispatch({ type: 'AUTH_LOGOUT_SUCCESS' }))
+        .catch(reason => dispatch({ type: 'AUTH_LOGOUT_ERROR', error: reason }))
 }
 
 export const loginUser = formData => dispatch => {
     dispatch({ type: 'AUTH_LOGIN_INIT' })
     return API.login(formData)
         .then(_ => dispatch({ type: 'AUTH_LOGIN_SUCCESS' }))
+        .catch(reason => dispatch({ type: 'AUTH_LOGIN_ERROR', error: reason }))
 }
 
 export const listenToAuthChanges = () => dispatch => {
