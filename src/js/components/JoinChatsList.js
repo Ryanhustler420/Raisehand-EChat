@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 export default function JoinChatsList({ chats }) {
 
     const history = useHistory()
+    const placeholderImage = 'https://via.placeholder.com/350x150'
 
     return (
         <div className="list-container">
@@ -17,7 +18,7 @@ export default function JoinChatsList({ chats }) {
                             onClick={() => history.push(`/chat/${chat.id}`)}
                             className="item">
                             <div className="item-status">
-                                <img src={chat.image} alt="Retail Admin" />
+                                <img src={chat.image.includes('http') ? chat.image : placeholderImage} alt="Retail Admin" />
                                 <span className="status online"></span>
                             </div>
                             <p className="name-time">

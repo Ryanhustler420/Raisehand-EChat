@@ -9,6 +9,8 @@ export default function chatReducer(state = DEFAULT_STATE, action) {
             return { ...state, items: action.chats }
         case 'CHATS_CREATE_SUCCESS':
             return { ...state, isNewChatCreated: action.isNew }
+        case 'CHATS_JOIN_SUCCESS':
+            // return { ...state, isNewChatCreated: action.isNew }
         default:
             return state;
     }
