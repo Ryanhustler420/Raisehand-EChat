@@ -1,16 +1,16 @@
 const DEFAULT_STATE = {
-    items: [],
+    joined: [],
+    available: [],
     isNewChatCreated: false,
 }
 
 export default function chatReducer(state = DEFAULT_STATE, action) {
     switch (action.type) {
         case 'CHATS_FETCH_SUCCESS':
-            return { ...state, items: action.chats }
+            return { ...state, joined: action.chats.joined, available: action.chats.available  }
         case 'CHATS_CREATE_SUCCESS':
             return { ...state, isNewChatCreated: action.isNew }
         case 'CHATS_JOIN_SUCCESS':
-            // return { ...state, isNewChatCreated: action.isNew }
         default:
             return state;
     }

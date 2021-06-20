@@ -13,8 +13,9 @@ import Notifications from '../utils/Notifications';
 
 function HomeView() {
 
-    const dispatch = useDispatch()
-    const chats = useSelector(({ chats }) => chats.items)
+    const dispatch = useDispatch()    
+    const joined = useSelector(({ chats }) => chats.joined)
+    const available = useSelector(({ chats }) => chats.available)
 
     // will call only once
     useEffect(() => {
@@ -25,13 +26,13 @@ function HomeView() {
     return (
         <div className="row no-gutters fh">
             <div className="col-3 fh">
-                <JoinChatsList chats={chats} />
+                <JoinChatsList chats={joined} />
             </div>
             <div className="col-9 fh">
                 <ViewTitle text="Choose Any Channel">
                     <Link className="btn btn-outline-primary" to="/chatCreate" >New</Link>
                 </ViewTitle>
-                <AvailableChatsList chats={chats} />
+                <AvailableChatsList chats={available} />
             </div>
         </div>
     )
