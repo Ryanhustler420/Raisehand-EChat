@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 
 import HomeView from './views/HomeView';
 import ChatView from './views/ChatView';
+import ChatCreateView from './views/ChatCreateView';
+
 import WelcomeView from './views/WelcomeView';
 import SettingsView from './views/SettingsView';
 
@@ -42,6 +44,9 @@ function EChat() {
                     </Route>
                     <AuthRoute path="/home">
                         <HomeView />
+                    </AuthRoute>
+                    <AuthRoute path="/chatCreate">
+                        <ChatCreateView />
                     </AuthRoute>
                     <AuthRoute path="/chat/:id">
                         <ChatView />

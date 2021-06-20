@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+
 import ViewTitle from '../components/shared/ViewTitle';
 import JoinChatsList from '../components/JoinChatsList';
 import AvailableChatsList from '../components/AvailableChatsList';
@@ -26,11 +28,13 @@ function HomeView() {
                 <JoinChatsList chats={chats} />
             </div>
             <div className="col-9 fh">
-                <ViewTitle text="Choose any channel" />
+                <ViewTitle text="Choose Any Channel">
+                    <Link className="btn btn-outline-primary" to="/chatCreate" >New</Link>
+                </ViewTitle>
                 <AvailableChatsList chats={chats} />
             </div>
         </div>
     )
 }
 
-export default withBaseLayout(HomeView, {canGoBack: false})
+export default withBaseLayout(HomeView, { canGoBack: false })
