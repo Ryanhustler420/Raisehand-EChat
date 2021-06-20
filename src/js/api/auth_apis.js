@@ -4,7 +4,7 @@ import 'firebase/auth'
 import db from '../db/firestore'
 
 // Collection Names
-const U_PROFILES = 'uProfiles'
+export const U_PROFILES = 'uProfiles'
 
 const createUserProfileDocument = (userProfile) =>
     db.collection(U_PROFILES)

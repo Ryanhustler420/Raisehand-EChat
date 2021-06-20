@@ -1,14 +1,22 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { Redirect } from 'react-router-dom';
 import { withBaseLayout } from './../Hoc/BaseLayout';
+import { createChat } from '../actions/chats-actions';
+import { useDispatch, useSelector } from 'react-redux';
 
 function ChatCreateView() {
 
     const { register, handleSubmit } = useForm();
+    const user = useSelector(({auth}) => auth.user);
+    const isNewChatCreated = useSelector(({chats}) => chats.isNewChatCreated);
+    const dispatch = useDispatch();
 
     const onSubmit = data => {
-        alert(JSON.stringify(data))
-    }
+        dispatch(createChat(data, user.uid));
+    };
+
+    if (isNewChatCreated) { return <Redirect to="/home" /> }
 
     return (
         <div className="centered-view">
