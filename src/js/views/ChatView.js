@@ -7,12 +7,13 @@ import ViewTitle from './../components/shared/ViewTitle';
 import ChatUsersList from './../components/ChatUsersList';
 import ChatMessagesList from './../components/ChatMessagesList';
 
-import { subscribeToChat } from '../actions/chats-actions';
+import { subscribeToChat, subscribeToProfile } from '../actions/chats-actions';
 
 function ChatView() {
     const { id } = useParams()
     const dispatch = useDispatch()
     const activeChat = useSelector(({chats}) => chats.activeChat[id])
+    const joinedUsers = activeChat?.joinedUsers
 
     useEffect(() => {
         const unsubscribeChat = dispatch(subscribeToChat(id))
@@ -20,6 +21,16 @@ function ChatView() {
             unsubscribeChat()
         }
     }, [])
+
+    // if 'joinedUsers' will change this useEffect will be called automatically
+    useEffect(() => {
+        joinedUsers && subscribedToJoinedUsers(joinedUsers)
+    }, [joinedUsers]);
+
+
+    const subscribedToJoinedUsers = jUsers => {
+        jUsers.forEach(user => dispatch(subscribeToProfile(user.uid)));
+    }
 
     return (
         <div className="row no-gutters fh">

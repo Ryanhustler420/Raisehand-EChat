@@ -47,3 +47,8 @@ export const subscribeToChat = chatId => dispatch =>
         fetchedChat.joinedUsers = await Promise.all(joinedUsers)
         dispatch({ type: 'CHATS_SET_ACTIVE_CHAT', chat: fetchedChat })
     });
+
+export const subscribeToProfile = uid => dispatch =>
+    API.subscribeToProfile(uid, user => {
+        dispatch({ type: 'CHATS_UPDATE_USER_STATE', user })
+    });
