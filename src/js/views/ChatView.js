@@ -24,10 +24,10 @@ function ChatView() {
     return (
         <div className="row no-gutters fh">
             <div className="col-3 fh">
-                <ChatUsersList />
+                <ChatUsersList users={activeChat?.joinedUsers || []} />
             </div>
             <div className="col-9 fh">
-                <ViewTitle text={`Joined Channel: ${id}`} />
+                <ViewTitle text={`Channel: ${activeChat?.name}`} />
                 <ChatMessagesList />
             </div>
         </div>
