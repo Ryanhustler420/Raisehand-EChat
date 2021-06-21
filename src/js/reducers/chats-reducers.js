@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import _ from 'lodash'
 
 function createChatReducer() {
     const joined = (state = [], action) => {
@@ -7,6 +8,8 @@ function createChatReducer() {
                 return [];
             case 'CHATS_FETCH_SUCCESS':
                 return action.joined;
+            case 'CHATS_JOIN_SUCCESS':
+                return _.uniqBy([...state, action.newChat], 'id')
             default:
                 return state;
         }
@@ -18,6 +21,8 @@ function createChatReducer() {
                 return [];
             case 'CHATS_FETCH_SUCCESS':
                 return action.available;
+            case 'CHATS_JOIN_SUCCESS':
+                return state.filter(ch => ch.id !== action.newChat.id);
             default:
                 return state;
         }

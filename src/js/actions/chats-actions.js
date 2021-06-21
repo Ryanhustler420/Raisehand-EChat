@@ -6,7 +6,7 @@ import { U_PROFILES } from './../api/auth_apis';
 export const fetchChats = () => async (dispatch, getState) => {
     const { user } = getState().auth;
 
-    dispatch({type: 'CHATS_FETCH_INIT'});
+    dispatch({ type: 'CHATS_FETCH_INIT' });
     const chats = await API.fetchChats();
     chats.forEach(chat => chat.joinedUsers = chat.joinedUsers.map(user => user.id))
 
@@ -15,15 +15,15 @@ export const fetchChats = () => async (dispatch, getState) => {
         const chatToJoin = chat.joinedUsers.includes(user.uid) ? 'joined' : 'available';
         accuChats[chatToJoin].push(chat);
         return accuChats;
-    }, { joined: [], available: []});
+    }, { joined: [], available: [] });
 
-    dispatch({type: 'CHATS_FETCH_SUCCESS', ...sortedChats})
+    dispatch({ type: 'CHATS_FETCH_SUCCESS', ...sortedChats })
     return sortedChats;
 }
 
 export const joinChat = (chat, uid) => async dispatch => {
     const chatId = await API.joinChat(uid, chat.id)
-    dispatch({ type: 'CHATS_JOIN_SUCCESS', isNew: true });
+    dispatch({ type: 'CHATS_JOIN_SUCCESS', newChat: chat });
 }
 
 export const createChat = (formData, userId) => async dispatch => {
@@ -33,6 +33,6 @@ export const createChat = (formData, userId) => async dispatch => {
     const chatId = await API.createChat(newChat);
     dispatch({ type: 'CHATS_CREATE_SUCCESS', isNew: true });
     await API.joinChat(userId, chatId);
-    dispatch({ type: 'CHATS_JOIN_SUCCESS', isNew: true });
+    dispatch({ type: 'CHATS_JOIN_SUCCESS', newChat: { ...newChat, id: chatId } });
     return chatId;
 }
