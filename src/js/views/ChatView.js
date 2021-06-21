@@ -32,7 +32,7 @@ function ChatView() {
     const subscribedToJoinedUsers = jUsers => {
         jUsers.forEach(user => {
             if (!watchingPeople.current[user.uid]) {
-                watchingPeople.current[user.uid] = dispatch(subscribeToProfile(user.uid))
+                watchingPeople.current[user.uid] = dispatch(subscribeToProfile(user.uid, id))
             }
         });
     }

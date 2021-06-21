@@ -41,6 +41,19 @@ function createChatReducer() {
             const { chat } = action;
             state[chat.id] = chat;
         },
+        'CHATS_UPDATE_USER_STATE': (state, action) => {
+            const { watchPeople, chatid } = action;
+            const joinedUsers = state[chatid].joinedUsers;
+
+            // checking if user ids is already inside state so that we can get the index
+            const index = joinedUsers.findIndex(ju => ju.uid === watchPeople.uid)
+
+            if (index < 0) { return state }
+            if (joinedUsers[index].state === watchPeople.state) { return state }
+
+            // updating the state of user which was save inside state = {}, to latest state
+            joinedUsers[index].state = watchPeople.state;
+        }
     })
 
     const isNewChatCreated = (state = false, action) => {
