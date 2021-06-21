@@ -17,7 +17,7 @@ export const fetchChats = () => async (dispatch, getState) => {
         return accuChats;
     }, { joined: [], available: []});
 
-    dispatch({type: 'CHATS_FETCH_SUCCESS', chats: sortedChats})
+    dispatch({type: 'CHATS_FETCH_SUCCESS', ...sortedChats})
     return sortedChats;
 }
 
