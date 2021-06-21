@@ -90,3 +90,5 @@ const uProfile = {
     }
 
 ```
+
+> npm install --save @reduxjs/toolkit

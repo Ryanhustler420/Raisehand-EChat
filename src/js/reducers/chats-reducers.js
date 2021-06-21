@@ -1,5 +1,12 @@
 import { combineReducers } from 'redux';
+import { createReducer } from '@reduxjs/toolkit';
+
 import _ from 'lodash'
+
+// how will we store this deta, every chat when click
+// we get all the users,
+// we want to ake a seperate object which will keep track of openChat activity
+// chatId, allUsers, messages,
 
 function createChatReducer() {
     const joined = (state = [], action) => {
@@ -28,6 +35,14 @@ function createChatReducer() {
         }
     }
 
+    const activeChat = createReducer({}, {
+        // here state value will be {}
+        'CHATS_SET_ACTIVE_CHAT': (state, action) => {
+            const { chat } = action;
+            state[chat.id] = chat;
+        },
+    })
+
     const isNewChatCreated = (state = false, action) => {
         switch (action.type) {
             case 'CHATS_CREATE_SUCCESS':
@@ -38,6 +53,7 @@ function createChatReducer() {
     }
 
     return combineReducers({
+        activeChat,
         joined: joined,
         available: available,
         isNewChatCreated: isNewChatCreated

@@ -44,7 +44,6 @@ export const subscribeToChat = chatId => dispatch =>
             return userSnapshot.data()
         })
 
-        joinedUsers = await Promise.all(joinedUsers)
-        debugger
-        dispatch({ type: 'CHATS_SET_ACTIVE_cHAT', chat: fetchedChat })
+        fetchedChat.joinedUsers = await Promise.all(joinedUsers)
+        dispatch({ type: 'CHATS_SET_ACTIVE_CHAT', chat: fetchedChat })
     });
