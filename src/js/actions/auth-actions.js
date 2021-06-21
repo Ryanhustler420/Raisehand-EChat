@@ -17,7 +17,10 @@ export const loginUser = formData => dispatch => {
 export const logout = () => dispatch => {
     dispatch({ type: 'AUTH_LOGOUT_INIT' })
     return API.logout()
-        .catch(reason => dispatch({ type: 'AUTH_LOGOUT_ERROR', error: reason }))
+        .then(_ => {
+            dispatch({type: 'AUTH_LOGOUT_SUCCESS'});
+            dispatch({type: 'CHATS_FETCH_RESET_OLD_STATE'});
+        }).catch(reason => dispatch({ type: 'AUTH_LOGOUT_ERROR', error: reason }))
 }
 
 export const listenToAuthChanges = () => dispatch => {

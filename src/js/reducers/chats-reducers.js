@@ -3,6 +3,8 @@ import { combineReducers } from 'redux';
 function createChatReducer() {
     const joined = (state = [], action) => {
         switch (action.type) {
+            case 'CHATS_FETCH_RESET_OLD_STATE':
+                return [];
             case 'CHATS_FETCH_SUCCESS':
                 return action.joined;
             default:
@@ -10,8 +12,10 @@ function createChatReducer() {
         }
     }
 
-    const available = (state =[], action) => {
+    const available = (state = [], action) => {
         switch (action.type) {
+            case 'CHATS_FETCH_RESET_OLD_STATE':
+                return [];
             case 'CHATS_FETCH_SUCCESS':
                 return action.available;
             default:
@@ -28,7 +32,7 @@ function createChatReducer() {
         }
     }
 
-    return combineReducers ({
+    return combineReducers({
         joined: joined,
         available: available,
         isNewChatCreated: isNewChatCreated
