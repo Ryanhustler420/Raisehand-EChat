@@ -38,6 +38,13 @@ export const createChat = (formData, userId) => async dispatch => {
 }
 
 export const subscribeToChat = chatId => dispatch =>
-    API.subscribeToChat(chatId, (fetchedChat) => {
+    API.subscribeToChat(chatId, async fetchedChat => {
+        let joinedUsers = fetchedChat.joinedUsers.map(async userRef => {
+            const userSnapshot = await userRef.get()
+            return userSnapshot.data()
+        })
+
+        joinedUsers = await Promise.all(joinedUsers)
+        debugger
         dispatch({ type: 'CHATS_SET_ACTIVE_cHAT', chat: fetchedChat })
     });

@@ -22,9 +22,9 @@ export const joinChat = async (userId, chatId) => {
     return chatId;
 }
 
-export const subscribeToChat = (chat, onSubscribe) => db
+export const subscribeToChat = (chatId, onSubscribe) => db
     .collection(COLLECTION_CHATS)
-    .doc(chat.id)
+    .doc(chatId)
     .onSnapshot(snap => {
         const chat = { id: snap.id, ...snap.data() }
         onSubscribe(chat)
