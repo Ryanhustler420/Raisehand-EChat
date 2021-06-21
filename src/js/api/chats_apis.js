@@ -21,3 +21,11 @@ export const joinChat = async (userId, chatId) => {
     await chatRef.update({ joinedUsers: firebase.firestore.FieldValue.arrayUnion(userRef) })
     return chatId;
 }
+
+export const subscribeToChat = (chat, onSubscribe) => db
+    .collection(COLLECTION_CHATS)
+    .doc(chat.id)
+    .onSnapshot(snap => {
+        const chat = { id: snap.id, ...snap.data() }
+        onSubscribe(chat)
+    })
