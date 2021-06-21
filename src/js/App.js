@@ -10,6 +10,7 @@ import SettingsView from './views/SettingsView';
 import { HashRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 
+import { checkUserConnection } from './actions/connection-actions';
 import { listenToConnectionChanges } from './actions/root-actions';
 import { listenToAuthChanges } from './actions/auth-actions';
 import StoreProvider from './store/StoreProvider';
@@ -24,11 +25,13 @@ function EChat() {
     useEffect(() => {
         const unsubscribeAuthStateListener = dispatch(listenToAuthChanges())
         const unsubscribeConnectionChanges = dispatch(listenToConnectionChanges())
+        const unsubscribeUserConnections = dispatch(checkUserConnection())
 
         // will be called when this componet gets destroyed
         return function () {
             unsubscribeAuthStateListener();
             unsubscribeConnectionChanges();
+            unsubscribeUserConnections();
         }
     }, [dispatch])
 
