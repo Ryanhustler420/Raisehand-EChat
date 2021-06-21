@@ -21,6 +21,11 @@ export const fetchChats = () => async (dispatch, getState) => {
     return sortedChats;
 }
 
+export const joinChat = (chat, uid) => async dispatch => {
+    const chatId = await API.joinChat(uid, chat.id)
+    dispatch({ type: 'CHATS_JOIN_SUCCESS', isNew: true });
+}
+
 export const createChat = (formData, userId) => async dispatch => {
     const newChat = { ...formData }
     newChat.admin = db.doc(`${U_PROFILES}/${userId}`)

@@ -19,4 +19,5 @@ export const joinChat = async (userId, chatId) => {
 
     await userRef.update({ joinedChats: firebase.firestore.FieldValue.arrayUnion(chatRef) })
     await chatRef.update({ joinedUsers: firebase.firestore.FieldValue.arrayUnion(userRef) })
+    return chatId;
 }
