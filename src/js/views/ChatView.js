@@ -24,6 +24,7 @@ function ChatView() {
     const dispatch = useDispatch()
     const watchingPeople = useRef({}); // this will presist the value even if re-render happens, we just use 'watchingPeople.current'
     const activeChat = useSelector(({ chats }) => chats.activeChat[id])
+    const messages = useSelector(({ chats }) => chats.messages[id])
     const joinedUsers = activeChat?.joinedUsers
 
     useEffect(() => {
@@ -72,7 +73,7 @@ function ChatView() {
             </div>
             <div className="col-9 fh">
                 <ViewTitle text={`Channel: ${activeChat?.name}`} />
-                <ChatMessagesList />
+                <ChatMessagesList messages={messages} />
                 <MessageBox onSubmit={sendMessage} />
             </div>
         </div>

@@ -56,14 +56,13 @@ export const subscribeToProfile = (uid, chatid) => dispatch =>
 export const subscribeToMessages = chatId => dispatch => {
     return API.subscribeToMessages(chatId, (latestMessages) => {
         
-        const chatMessages = latestMessages.map(message => {
+        const messages = latestMessages.map(message => {
             if(message.type === 'added') {
                 return {id: message.doc.id, ...message.doc.data()}
             }
         })
 
-        dispatch({type: 'CHATS_SET_MESSAGES', chatMessages, chatId})
-        return latestMessages;
+        return dispatch({type: 'CHATS_SET_MESSAGES', messages, chatId})        
     })
 }
 

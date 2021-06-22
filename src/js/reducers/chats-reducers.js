@@ -56,6 +56,13 @@ function createChatReducer() {
         }
     })
 
+    const messages = createReducer({}, {
+        'CHATS_SET_MESSAGES': (state, action) => {
+            const previousMessagesOfChatId = state[action.chatId] || [];
+            state[action.chatId] = [...previousMessagesOfChatId, ...action.messages]
+        }
+    })
+
     const isNewChatCreated = (state = false, action) => {
         switch (action.type) {
             case 'CHATS_CREATE_SUCCESS':
@@ -66,6 +73,7 @@ function createChatReducer() {
     }
 
     return combineReducers({
+        messages,
         activeChat,
         joined: joined,
         available: available,
