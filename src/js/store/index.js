@@ -24,10 +24,7 @@ export default function configureStore() {
     });
 
     const filteredReducer = (state, action) => {
-        debugger
-        if (action.type === 'AUTH_LOGOUT_SUCCESS') {
-            state = undefined;
-        }
+        if (action.type === 'AUTH_LOGOUT_SUCCESS') state = undefined;
         return mainReducer(state, action)
     }
 

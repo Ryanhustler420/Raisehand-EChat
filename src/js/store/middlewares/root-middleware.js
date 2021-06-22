@@ -3,6 +3,7 @@
  * NOTE: Do not mess with data which are going to receive by any reducer, BAD PRACTICE
  */
 
+import _ from 'lodash';
 import Notifications from "../../utils/Notifications";
 
 /** (param) store:: get state of the application */
@@ -20,6 +21,17 @@ export default (store) => (next) => (action) => {
                     title: 'Connection Status',
                     body: action.isOnline ? 'Online' : 'Offline'
                 });
+        }
+        case 'AUTH_LOGOUT_SUCCESS': {
+            // unsubscribing all the listeners, to prevent memory leaks
+            const { messagesSubscriptions } = store.getState().chats;
+            if (messagesSubscriptions) {
+                // messagesSubscriptions = {'chatId' : [sub1]}
+                _.forEach(_.keys(messagesSubscriptions), chatId => {
+                    const unsubs = messagesSubscriptions[chatId];
+                    unsubs(); // removing listeners
+                });
+            }
         }
     }
     next(action) // goes to next middleware, if has any!

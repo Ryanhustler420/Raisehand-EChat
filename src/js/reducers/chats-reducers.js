@@ -1,8 +1,6 @@
 import { combineReducers } from 'redux';
 import { createReducer } from '@reduxjs/toolkit';
 
-import _ from 'lodash'
-
 // how will we store this deta, every chat when click
 // we get all the users,
 // we want to ake a seperate object which will keep track of openChat activity
@@ -65,8 +63,8 @@ function createChatReducer() {
 
     const messagesSubscriptions = (state = {}, action) => {
         switch (action.type) {
-            case 'CHATS_REGISTER_MESSAGE_SUB':
-                return {...state, [action.chatId]: _.uniqBy(action.sub)}        
+            case 'CHATS_REGISTER_MESSAGE_SUB':                
+                return {...state, [action.chatId]: action.sub}        
             default:
                 return state;
         }

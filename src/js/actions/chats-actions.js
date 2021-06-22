@@ -79,11 +79,8 @@ export const subscribeToMessages = chatId => dispatch => {
     })
 }
 
-export const registerMessageSubscription = (chatId, subscription) => ({
-    type: 'CHATS_REGISTER_MESSAGE_SUB',
-    sub: subscription,
-    chatId,
-})
+export const registerMessageSubscription = (chatId, subscription) => dispatch =>
+    dispatch({ type: 'CHATS_REGISTER_MESSAGE_SUB', sub: subscription, chatId })
 
 export const sendChatMessage = (message, chatId) => (dispatch, getState) => {
     const newMessage = { ...message }
