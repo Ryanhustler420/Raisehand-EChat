@@ -24,25 +24,27 @@ function createWindow() {
     // const menuTemplate = Menu.buildFromTemplate([{label: 'File', submenu: [ { label: 'Exit', click: () => { app.exit() } } ]}])
     // Menu.setApplicationMenu(menuTemplate);
 
-    mainWindow.on('closed', () => {mainWindow = null});
+    mainWindow.on('closed', () => { mainWindow = null });
 }
 
 ipcMain.on('notify', (_, message) => {
     if (process.platform === 'win32') app.setAppUserModelId("Raisehand Software LLC");
-    const notification = new Notification({title: 'Runner', body: message, icon: `${__dirname}/icons/logo.png`})
+    const notification = new Notification({ title: 'Runner', body: message, icon: `${__dirname}/icons/logo.png` })
     notification.show()
 })
 
+ipcMain.on('app-quit', (e) => app.quit())
+
 app.whenReady().then(() => createWindow())
-app.on('ready', (e) => {})
+app.on('ready', (e) => { })
 app.on('window-all-closed', (e) => {
-    if(process.platform !== 'darwin') {
+    if (process.platform !== 'darwin') {
         app.quit()
     }
 })
 // only for mac os where application hangs in dock
 app.on('activate', (e) => {
-    if(BrowserWindow.getAllWindows().length === 0) {
+    if (BrowserWindow.getAllWindows().length === 0) {
         createWindow();
     }
 })

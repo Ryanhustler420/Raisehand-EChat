@@ -17,11 +17,13 @@ export default (store) => (next) => (action) => {
     switch (action.type) {
         case 'APP_IS_ONLINE':
         case 'APP_IS_OFFLINE': {
-            Notifications
-                .show({
+            const { showNotifications } = DataBucket.settings
+            if (showNotifications) {
+                Notifications.show({
                     title: 'Connection Status',
                     body: action.isOnline ? 'Online' : 'Offline'
                 });
+            }
         }
         case 'SETTINGS_UPDATE': {
             const { setting, value } = action;
@@ -31,7 +33,7 @@ export default (store) => (next) => (action) => {
         }
         case 'AUTH_LOGOUT_SUCCESS': {
             // unsubscribing all the listeners, to prevent memory leaks
-            const { messagesSubscriptions } = store.getState().chats;
+            const { messagesSubscriptions } = DataBucket.chats;
             if (messagesSubscriptions) {
                 // messagesSubscriptions = {'chatId' : [sub1]}
                 _.forEach(_.keys(messagesSubscriptions), chatId => {

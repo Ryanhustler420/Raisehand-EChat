@@ -14,7 +14,7 @@ window.addEventListener('DOMContentLoaded', () => {
 const { ipcRenderer, contextBridge } = require('electron');
 
 contextBridge.exposeInMainWorld('electron', {
-  notificationApi : {
+  notificationApi: {
     sendNotification(message) {
       ipcRenderer.send('notify', message)
     },
@@ -24,6 +24,11 @@ contextBridge.exposeInMainWorld('electron', {
       eval(jsExpression)
       ipcRenderer.send('notify', message)
     },
+  },
+  appApi: {
+    quitApp() {
+      ipcRenderer.send('app-quit')
+    }
   },
   betteryApi: {
 
