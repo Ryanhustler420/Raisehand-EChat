@@ -36,6 +36,14 @@ export const subscribeToProfile = (uid, onSubscribe) => db
     .doc(uid)
     .onSnapshot(snap => onSubscribe(snap.data()))
 
+export const subscribeToMessages = (chatId, onSubscribe) => {
+    db
+        .collection(COLLECTION_CHATS)
+        .doc(chatId)
+        .collection(COLLECTION_MESSAGES)
+        .onSnapshot(snap => onSubscribe(snap.docChanges()))
+}
+
 export const sendChatMessage = (message, chatId) => {
     return db
         .collection(COLLECTION_CHATS)

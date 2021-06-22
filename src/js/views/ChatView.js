@@ -9,7 +9,12 @@ import MessageBox from './../components/MessageBox';
 import ChatUsersList from './../components/ChatUsersList';
 import ChatMessagesList from './../components/ChatMessagesList';
 
-import { subscribeToChat, subscribeToProfile, sendChatMessage } from '../actions/chats-actions';
+import { 
+    subscribeToChat, 
+    sendChatMessage,
+    subscribeToProfile, 
+    subscribeToMessages,
+} from '../actions/chats-actions';
 
 function ChatView() {
 
@@ -23,6 +28,7 @@ function ChatView() {
 
     useEffect(() => {
         const unsubscribeChat = dispatch(subscribeToChat(id))
+        dispatch(subscribeToMessages(id)); // no need to unsubscribe because we want to listen via notification later on
         return () => {
             unsubscribeChat()
             unsubscribeWatchedPeoples()
