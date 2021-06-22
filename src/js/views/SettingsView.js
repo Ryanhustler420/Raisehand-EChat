@@ -12,8 +12,6 @@ function SettingsView() {
         playSound
     } = useSelector(({ settings }) => settings);
 
-    debugger
-
     const handleSettings = ({ target: { checked, name } }) => {
         dispatch(updateSettings(name, checked))
     }

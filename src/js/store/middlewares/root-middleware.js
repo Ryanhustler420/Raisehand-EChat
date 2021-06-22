@@ -22,6 +22,14 @@ export default (store) => (next) => (action) => {
                     body: action.isOnline ? 'Online' : 'Offline'
                 });
         }
+        case 'SETTINGS_UPDATE': {
+            const { setting, value } = action;
+            const currentSettings = localStorage.getItem('app-settings');
+            const parsedCurrentSettings = currentSettings ? JSON.parse(currentSettings) : {};
+            const settings = {...parsedCurrentSettings, [setting]: value}
+            const stringfiedSettings = JSON.stringify(settings);
+            localStorage.setItem('app-settings', stringfiedSettings)
+        }
         case 'AUTH_LOGOUT_SUCCESS': {
             // unsubscribing all the listeners, to prevent memory leaks
             const { messagesSubscriptions } = store.getState().chats;
