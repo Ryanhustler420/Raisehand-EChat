@@ -1,7 +1,16 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { withBaseLayout } from './../Hoc/BaseLayout';
+import { updateSettings } from './../actions/settings-actions';
 
 function SettingsView() {
+
+    const dispatch = useDispatch();
+
+    const handleSettings = ({ target: { checked, name } }) => {
+        dispatch(updateSettings(name, checked))
+    }
+
     return (
         <div className="centered-view">
             <div className="centered-container">
@@ -11,6 +20,7 @@ function SettingsView() {
                         <div className="my-3">
                             <div className="form-check">
                                 <input
+                                    onChange={handleSettings}
                                     name="isDarkTheme"
                                     type="checkbox"
                                     className="form-check-input" />
@@ -18,6 +28,7 @@ function SettingsView() {
                             </div>
                             <div className="form-check">
                                 <input
+                                    onChange={handleSettings}
                                     name="showNotifications"
                                     type="checkbox"
                                     className="form-check-input" />
@@ -25,6 +36,7 @@ function SettingsView() {
                             </div>
                             <div className="form-check">
                                 <input
+                                    onChange={handleSettings}
                                     name="playSound"
                                     type="checkbox"
                                     className="form-check-input" />
@@ -44,4 +56,4 @@ function SettingsView() {
     )
 }
 
-export default withBaseLayout(SettingsView, {canGoBack: true})
+export default withBaseLayout(SettingsView, { canGoBack: true })
