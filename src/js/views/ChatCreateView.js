@@ -8,8 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 function ChatCreateView() {
 
     const { register, handleSubmit } = useForm();
-    const user = useSelector(({auth}) => auth.user);
-    const isNewChatCreated = useSelector(({chats}) => chats.isNewChatCreated);
+    const user = useSelector(({ auth }) => auth.user);
+    const isNewChatCreated = useSelector(({ chats }) => chats.isNewChatCreated);
     const dispatch = useDispatch();
 
     const onSubmit = data => {
@@ -38,6 +38,9 @@ function ChatCreateView() {
                         <div className="form-group">
                             <label htmlFor="description">Description</label>
                             <textarea
+                                style={{
+                                    resize: 'none'
+                                }}
                                 {...register("description")}
                                 className="form-control"
                                 id="description" />

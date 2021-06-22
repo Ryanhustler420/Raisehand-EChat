@@ -5,6 +5,7 @@ import { withBaseLayout } from '../Hoc/BaseLayout';
 
 import Loading from './../components/shared/Loading';
 import ViewTitle from './../components/shared/ViewTitle';
+import MessageBox from './../components/MessageBox';
 import ChatUsersList from './../components/ChatUsersList';
 import ChatMessagesList from './../components/ChatMessagesList';
 
@@ -41,6 +42,10 @@ function ChatView() {
         });
     }, [dispatch, id])
 
+    const sendMessage = message => {
+        console.log('From parent component', message);
+    }
+
     const unsubscribeWatchedPeoples = useCallback(() => {
         // has dispatch inside watchingPeople.current[x] so we just need to call
         Object.keys(watchingPeople.current).forEach(id => {
@@ -62,6 +67,7 @@ function ChatView() {
             <div className="col-9 fh">
                 <ViewTitle text={`Channel: ${activeChat?.name}`} />
                 <ChatMessagesList />
+                <MessageBox onSubmit={sendMessage} />
             </div>
         </div>
     )
