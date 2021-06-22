@@ -2,6 +2,7 @@ import { createStore, applyMiddleware, combineReducers } from 'redux'
 import chatReducer from '../reducers/chats-reducers'
 import rootReducer from '../reducers/root-reducers'
 import authReducer from '../reducers/auth-reducers'
+import settingReducer from '../reducers/settings-reducers';
 
 import thunkMiddleware from 'redux-thunk'
 import rootMiddleware from './middlewares/root-middleware'
@@ -20,7 +21,8 @@ export default function configureStore() {
     const mainReducer = combineReducers({
         chats: chatReducer,
         auth: authReducer,
-        root: rootReducer
+        root: rootReducer,
+        settings: settingReducer,
     });
 
     const filteredReducer = (state, action) => {
