@@ -4,6 +4,7 @@
  */
 
 import _ from 'lodash';
+import Storage from './../../utils/storage';
 import Notifications from "../../utils/Notifications";
 
 /** (param) store:: get state of the application */
@@ -24,11 +25,9 @@ export default (store) => (next) => (action) => {
         }
         case 'SETTINGS_UPDATE': {
             const { setting, value } = action;
-            const currentSettings = localStorage.getItem('app-settings');
-            const parsedCurrentSettings = currentSettings ? JSON.parse(currentSettings) : {};
-            const settings = {...parsedCurrentSettings, [setting]: value}
-            const stringfiedSettings = JSON.stringify(settings);
-            localStorage.setItem('app-settings', stringfiedSettings)
+            const currentSettings = new Storage().getItem('app-settings');
+            const settings = { ...currentSettings, [setting]: value }
+            new Storage().setItem('app-settings', settings)
         }
         case 'AUTH_LOGOUT_SUCCESS': {
             // unsubscribing all the listeners, to prevent memory leaks
