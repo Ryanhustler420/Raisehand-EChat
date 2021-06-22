@@ -17,14 +17,21 @@ export default function configureStore() {
         rootMiddleware,
     ]
 
-    const store = createStore(
-        combineReducers({ 
-            chats: chatReducer,
-            auth: authReducer,
-            root: rootReducer
-        }),
-        applyMiddleware(...middlewares)
-    )
+    const mainReducer = combineReducers({
+        chats: chatReducer,
+        auth: authReducer,
+        root: rootReducer
+    });
+
+    const filteredReducer = (state, action) => {
+        debugger
+        if (action.type === 'AUTH_LOGOUT_SUCCESS') {
+            state = undefined;
+        }
+        return mainReducer(state, action)
+    }
+
+    const store = createStore(filteredReducer, applyMiddleware(...middlewares))
 
     return store;
 }
