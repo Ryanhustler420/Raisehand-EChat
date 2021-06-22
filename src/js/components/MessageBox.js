@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createTimeStamp } from './../utils/FirebaseTime';
 
 export default function MessageBox({onSubmit}) {
 
@@ -6,12 +7,23 @@ export default function MessageBox({onSubmit}) {
 
     const onKeyPress = e => {
         if (e.key === 'Enter') { 
-            console.log(value);
+            sendMessage()
         }
     }
 
     const onSendButtonClick = () => {
-        onSubmit(value);
+        sendMessage()
+    }
+
+    const sendMessage = () => {
+        if (value.trim() === '') return;
+
+        const message = {
+            content: value.trim(),
+            timestemp: createTimeStamp(),
+        }
+
+        onSubmit(message);
         setValue('')
     }
 
