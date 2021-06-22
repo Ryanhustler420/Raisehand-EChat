@@ -4,6 +4,7 @@ import firebase from 'firebase/app';
 
 // Collection Names
 const COLLECTION_CHATS = 'chats'
+const COLLECTION_MESSAGES = 'messages'
 
 // Helper Method to extract data
 const extractSnapshotData = snapshot => snapshot.docs.map(d => ({ id: d.id, ...d.data() }))
@@ -34,3 +35,12 @@ export const subscribeToProfile = (uid, onSubscribe) => db
     .collection(U_PROFILES)
     .doc(uid)
     .onSnapshot(snap => onSubscribe(snap.data()))
+
+export const sendChatMessage = (message, chatId) => {
+    return db
+        .collection(COLLECTION_CHATS)
+        .doc(chatId)
+        .collection(COLLECTION_MESSAGES)
+        .doc(message.timestemp)
+        .set(message)
+}

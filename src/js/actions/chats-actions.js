@@ -52,3 +52,16 @@ export const subscribeToProfile = (uid, chatid) => dispatch =>
     API.subscribeToProfile(uid, watchPeople => {
         dispatch({ type: 'CHATS_UPDATE_USER_STATE', watchPeople, chatid })
     });
+
+export const sendChatMessage = (message, chatId) => (dispatch, getState) => {
+    const newMessage = { ...message }
+
+    // current logged in user
+    const { user } = getState().auth
+    const userRef = db.doc(`${U_PROFILES}/${user.uid}`)
+    newMessage.author = userRef;
+
+    return API
+        .sendChatMessage(newMessage, chatId)
+        .then(_ => dispatch({type: 'CHATS_MESSAGE_SENT'}));
+}
