@@ -6,6 +6,7 @@ import settingReducer from '../reducers/settings-reducers';
 
 import thunkMiddleware from 'redux-thunk'
 import rootMiddleware from './middlewares/root-middleware'
+import _ from 'lodash';
 
 // We store all the data to this store,
 // All the reducer, actions, component, api
@@ -26,7 +27,14 @@ export default function configureStore() {
     });
 
     const filteredReducer = (state, action) => {
-        if (action.type === 'AUTH_LOGOUT_SUCCESS') state = undefined;
+        if (action.type === 'AUTH_LOGOUT_SUCCESS') {
+            _.keys(state).forEach(saveableKey => {
+                if (state[saveableKey]) {
+                    return; // do nothing
+                }
+                state[saveableKey] = undefined;
+            })
+        }
         return mainReducer(state, action)
     }
 

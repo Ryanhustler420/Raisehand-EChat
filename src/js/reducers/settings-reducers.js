@@ -4,6 +4,7 @@ const INITIAL_STATE = {
     isDarkTheme: false,
     showNotifications: true,
     playSound: true,
+    saveable: true,
 }
 
 export default function settingReducer(state = INITIAL_STATE, action) {
