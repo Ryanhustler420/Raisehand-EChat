@@ -9,10 +9,10 @@ import MessageBox from './../components/MessageBox';
 import ChatUsersList from './../components/ChatUsersList';
 import ChatMessagesList from './../components/ChatMessagesList';
 
-import { 
-    subscribeToChat, 
+import {
+    subscribeToChat,
     sendChatMessage,
-    subscribeToProfile, 
+    subscribeToProfile,
     subscribeToMessages,
     registerMessageSubscription,
 } from '../actions/chats-actions';
@@ -24,6 +24,7 @@ function ChatView() {
     const { id } = useParams()
     const dispatch = useDispatch()
     const watchingPeople = useRef({}); // this will presist the value even if re-render happens, we just use 'watchingPeople.current'
+    const messageList = useRef({});
     const activeChat = useSelector(({ chats }) => chats.activeChat[id])
     const messages = useSelector(({ chats }) => chats.messages[id])
     const joinedUsers = activeChat?.joinedUsers
@@ -34,7 +35,7 @@ function ChatView() {
 
         if (!messagesSubscription) {
             const unsubscriptionMessages = dispatch(subscribeToMessages(id));
-            dispatch(registerMessageSubscription(id, unsubscriptionMessages)); 
+            dispatch(registerMessageSubscription(id, unsubscriptionMessages));
             // we are saving the subscription listenter to redux state, so that it wont call
             // again when we enter into this chat, after existing...
         }
@@ -60,6 +61,7 @@ function ChatView() {
 
     const sendMessage = useCallback(message => {
         dispatch(sendChatMessage(message, id))
+            .then(_ => messageList.current.scrollIntoView(false))
     }, [id])
 
     const unsubscribeWatchedPeoples = useCallback(() => {
@@ -82,7 +84,10 @@ function ChatView() {
             </div>
             <div className="col-9 fh">
                 <ViewTitle text={`Channel: ${activeChat?.name}`} />
-                <ChatMessagesList messages={messages} />
+                <ChatMessagesList
+                    innerRef={messageList}
+                    messages={messages}
+                />
                 <MessageBox onSubmit={sendMessage} />
             </div>
         </div>

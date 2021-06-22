@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { formatTimestamp } from '../utils/FirebaseTime';
 
-export default function ChatMessagesList({ messages = [] }) {
+export default function ChatMessagesList({ messages = [], innerRef }) {
 
     const user = useSelector(({ auth }) => auth.user);
 
@@ -12,7 +12,7 @@ export default function ChatMessagesList({ messages = [] }) {
 
     return (
         <div className="chat-container">
-            <ul className="chat-box chatContainerScroll">
+            <ul ref={innerRef} className="chat-box chatContainerScroll">
                 {
                     messages.map(message => (
                         <li
