@@ -49,6 +49,6 @@ export const sendChatMessage = (message, chatId) => {
         .collection(COLLECTION_CHATS)
         .doc(chatId)
         .collection(COLLECTION_MESSAGES)
-        .doc(message.timestemp)
+        .doc(message.timestamp)
         .set(message)
 }

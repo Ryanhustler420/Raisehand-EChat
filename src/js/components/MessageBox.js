@@ -20,7 +20,7 @@ export default function MessageBox({onSubmit}) {
 
         const message = {
             content: value.trim(),
-            timestemp: createTimeStamp(),
+            timestamp: createTimeStamp(),
         }
 
         onSubmit(message);
