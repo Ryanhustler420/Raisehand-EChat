@@ -54,15 +54,28 @@ export const subscribeToProfile = (uid, chatid) => dispatch =>
     });
 
 export const subscribeToMessages = chatId => dispatch => {
-    return API.subscribeToMessages(chatId, (latestMessages) => {
-        
+    return API.subscribeToMessages(chatId, async (latestMessages) => {
+
         const messages = latestMessages.map(message => {
-            if(message.type === 'added') {
-                return {id: message.doc.id, ...message.doc.data()}
+            if (message.type === 'added') {
+                return { id: message.doc.id, ...message.doc.data() }
             }
         })
 
-        return dispatch({type: 'CHATS_SET_MESSAGES', messages, chatId})        
+        const messagesWithAuthor = []
+        const cache = {}
+
+        for await (let message of messages) {
+            if (cache[message.author.id]) {
+                message.author = cache[message.author.id]
+            } else {
+                const userSnapshot = await message.author.get()
+                message.author = cache[userSnapshot.id] = userSnapshot.data()
+            }
+            messagesWithAuthor.push(message)
+        }
+
+        return dispatch({ type: 'CHATS_SET_MESSAGES', messages: messagesWithAuthor, chatId })
     })
 }
 
@@ -76,5 +89,5 @@ export const sendChatMessage = (message, chatId) => (dispatch, getState) => {
 
     return API
         .sendChatMessage(newMessage, chatId)
-        .then(_ => dispatch({type: 'CHATS_MESSAGE_SENT'}));
+        .then(_ => dispatch({ type: 'CHATS_MESSAGE_SENT' }));
 }
