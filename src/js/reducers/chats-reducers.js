@@ -63,6 +63,15 @@ function createChatReducer() {
         }
     })
 
+    const messagesSubscriptions = (state = {}, action) => {
+        switch (action.type) {
+            case 'CHATS_REGISTER_MESSAGE_SUB':
+                return {...state, [action.chatId]: _.uniqBy(action.sub)}        
+            default:
+                return state;
+        }
+    }
+
     const isNewChatCreated = (state = false, action) => {
         switch (action.type) {
             case 'CHATS_CREATE_SUCCESS':
@@ -77,6 +86,7 @@ function createChatReducer() {
         activeChat,
         joined: joined,
         available: available,
+        messagesSubscriptions,
         isNewChatCreated: isNewChatCreated
     })
 }

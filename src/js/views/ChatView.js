@@ -14,6 +14,7 @@ import {
     sendChatMessage,
     subscribeToProfile, 
     subscribeToMessages,
+    registerMessageSubscription,
 } from '../actions/chats-actions';
 
 function ChatView() {
@@ -26,10 +27,18 @@ function ChatView() {
     const activeChat = useSelector(({ chats }) => chats.activeChat[id])
     const messages = useSelector(({ chats }) => chats.messages[id])
     const joinedUsers = activeChat?.joinedUsers
+    const messagesSubscription = useSelector(({ chats }) => chats.messagesSubscriptions[id])
 
     useEffect(() => {
         const unsubscribeChat = dispatch(subscribeToChat(id))
-        dispatch(subscribeToMessages(id)); // no need to unsubscribe because we want to listen via notification later on
+
+        if (!messagesSubscription) {
+            const unsubscriptionMessages = dispatch(subscribeToMessages(id));
+            dispatch(registerMessageSubscription(id, unsubscriptionMessages)); 
+            // we are saving the subscription listenter to redux state, so that it wont call
+            // again when we enter into this chat, after existing...
+        }
+
         return () => {
             unsubscribeChat()
             unsubscribeWatchedPeoples()
