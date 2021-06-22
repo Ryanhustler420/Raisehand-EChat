@@ -87,7 +87,10 @@ function AuthRoute({ children, ...rest }) {
     )
 }
 
-const ContentWrapper = ({ children }) => <div className='content-wrapper'>{children}</div>
+const ContentWrapper = ({ children }) => {
+    const { isDarkTheme } = useSelector(({ settings }) => settings)
+    return (<div className={`content-wrapper ${isDarkTheme ? 'dark' : 'light'}`}>{children}</div>)
+}
 
 export default function App() {
     return (
