@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { checkUserConnection } from './actions/connection-actions';
 import { listenToConnectionChanges } from './actions/root-actions';
+import { loadInitialSettings } from './actions/settings-actions';
 import { listenToAuthChanges } from './actions/auth-actions';
 import StoreProvider from './store/StoreProvider';
 import Loading from './components/shared/Loading';
@@ -24,6 +25,7 @@ function EChat() {
     const user = useSelector(({ auth }) => auth.user)
 
     useEffect(() => {
+        dispatch(loadInitialSettings())
         const unsubscribeAuthStateListener = dispatch(listenToAuthChanges())
         const unsubscribeConnectionChanges = dispatch(listenToConnectionChanges())
 
@@ -31,7 +33,6 @@ function EChat() {
         return function () {
             unsubscribeAuthStateListener();
             unsubscribeConnectionChanges();
-
         }
     }, [dispatch])
 

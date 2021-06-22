@@ -5,3 +5,7 @@ export const updateSettings = (setting, value) => {
         value
     }
 }
+
+export const loadInitialSettings = (setting, value) => {
+    return {type: 'SETTINGS_INITIAL_LOAD'}
+}
