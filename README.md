@@ -94,3 +94,13 @@ const uProfile = {
 > npm install --save @reduxjs/toolkit
 
 > npm install --save moment
+
+> npm install --save-dev webpack-merge
+
+Now you just need to run `npm run build` in order to make a production build and produce an executable file for ready to use
+
+After build, you will get a /build directory on root level of the project, and there will be a source map of code as well
+
+> npm start
+
+NOTE: not this command will run your code as production build, so everytime you change your code, you have to build your project with `npm run build` and the `npm start`

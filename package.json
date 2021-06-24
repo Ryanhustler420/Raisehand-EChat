@@ -6,14 +6,16 @@
   "scripts": {
     "start": "electron .",
     "watch": "webpack --config webpack.common.js --watch",
-    "dev": "SET NODE_ENV=development&&concurrently \"npm start\" \"npm run watch\""
+    "dev": "SET NODE_ENV=development&&concurrently \"npm start\" \"npm run watch\"",
+    "build": "webpack --config webpack.prod.js"
   },
   "author": "Gaurav Gupta",
   "license": "ISC",
   "devDependencies": {
     "dotenv-webpack": "^7.0.3",
     "electron": "^13.1.2",
-    "electron-reload": "^1.5.0"
+    "electron-reload": "^1.5.0",
+    "webpack-merge": "^5.8.0"
   },
   "dependencies": {
     "@babel/core": "^7.14.6",
