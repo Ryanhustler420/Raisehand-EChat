@@ -1,10 +1,11 @@
 const path = require('path');
-const { app, BrowserWindow, Menu, Notification, ipcMain } = require('electron')
+const { app, BrowserWindow, Menu, Notification, ipcMain, Tray } = require('electron')
 
 const isDevelopment = !app.isPackaged
 let mainWindow;
 
 const dockIcon = path.join(__dirname, 'assets', 'images', 'logo.png')
+const trayIcon = path.join(__dirname, 'assets', 'images', 'skull.png')
 
 function createSecondWindow() {
     let sec = new BrowserWindow({
@@ -51,10 +52,16 @@ ipcMain.on('notify', (_, message) => {
 
 ipcMain.on('app-quit', (e) => app.quit())
 
+let tray = null;
 app.whenReady().then(() => {
     const template = require('./utils/Menu').createTemplate(app);
     const menu = Menu.buildFromTemplate(template);
     Menu.setApplicationMenu(menu)
+
+    tray = new Tray(trayIcon);
+    tray.setContextMenu(menu); // we can create new menu for this but we're just fine and can use an existing menu instance
+    tray.setToolTip('Raisehand EChat');
+
     createWindow()
     createSecondWindow()
 })
