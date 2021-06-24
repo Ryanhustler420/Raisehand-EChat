@@ -7,13 +7,67 @@
     "start": "electron .",
     "watch": "webpack --config webpack.common.js --watch",
     "dev": "SET NODE_ENV=development&&concurrently \"npm start\" \"npm run watch\"",
-    "build": "webpack --config webpack.prod.js"
+    "build": "webpack --config webpack.prod.js",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "make:linux": "electron-builder --linux",
+    "make:macos": "electron-builder --mac",
+    "make:win": "electron-builder --win --x64"
   },
   "author": "Gaurav Gupta",
   "license": "ISC",
+  "build": {
+    "productName": "Raisehand EChat",
+    "appId": "software.raisehand.echat",
+    "files": [
+      "build/**/*",
+      "assets/**/*",
+      "utils/**/*",
+      "index.html",
+      "splash.html",
+      "splash.css",
+      "main.js",
+      "preload.js"
+    ],
+    "mac": {
+      "category": "public.app-category.developer-tools",
+      "icon": "assets/images/logo.png",
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false
+    },
+    "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 810,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "win": {
+      "icon": "assets/images/logo.png",
+      "target": [
+        "nsis"
+      ]
+    },
+    "linux": {
+      "target": [
+        "deb",
+        "rpm",
+        "AppImage"
+      ],
+      "category": "Development"
+    }
+  },
   "devDependencies": {
     "dotenv-webpack": "^7.0.3",
     "electron": "^13.1.2",
+    "electron-builder": "^22.11.7",
     "electron-reload": "^1.5.0",
     "webpack-merge": "^5.8.0"
   },
