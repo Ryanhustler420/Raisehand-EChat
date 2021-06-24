@@ -12,7 +12,6 @@ function createSplashWindow() {
     splashWindow = new BrowserWindow({
         width: 400,
         height: 200,
-        backgroundColor: '#6e707e',
         frame: false,
         transparent: true,
         resizable: false,
