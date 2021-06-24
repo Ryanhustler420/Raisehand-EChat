@@ -4,22 +4,24 @@ const { app, BrowserWindow, Menu, Notification, ipcMain } = require('electron')
 const isDevelopment = !app.isPackaged
 let mainWindow;
 
-// function createSecondWindow() {
-//     let sec = new BrowserWindow({
-//         width: 1200,
-//         height: 800,
-//         backgroundColor: '#6e707e',
-//         webPreferences: {
-//             nodeIntegration: false, // prevent html to access the ipcRenderer, so that they can't missuse these function
-//             contextIsolation: true, // cant override preload file values via console of browser
-//             enableRemoteModule: true, // Allow renderer to access Electron Native API which only get access in main thread
-//             worldSafeExecuteJavaScript: true, // Sanitize JS code
-//         }
-//     })
+const dockIcon = path.join(__dirname, 'assets', 'images', 'logo.png')
 
-//     sec.loadURL(`file://${__dirname}/second.html`)
-//     sec.on('closed', () => { sec = null });
-// }
+function createSecondWindow() {
+    let sec = new BrowserWindow({
+        width: 1200,
+        height: 800,
+        backgroundColor: '#6e707e',
+        webPreferences: {
+            nodeIntegration: false, // prevent html to access the ipcRenderer, so that they can't missuse these function
+            contextIsolation: true, // cant override preload file values via console of browser
+            enableRemoteModule: true, // Allow renderer to access Electron Native API which only get access in main thread
+            worldSafeExecuteJavaScript: true, // Sanitize JS code
+        }
+    })
+
+    sec.loadURL(`file://${__dirname}/second.html`)
+    sec.on('closed', () => { sec = null });
+}
 
 function createWindow() {
     mainWindow = new BrowserWindow({
@@ -54,8 +56,12 @@ app.whenReady().then(() => {
     const menu = Menu.buildFromTemplate(template);
     Menu.setApplicationMenu(menu)
     createWindow()
-    // createSecondWindow()
+    createSecondWindow()
 })
+
+if (process.platform === 'darwin') {
+    app.dock.setIcon(dockIcon);
+}
 
 app.on('ready', (e) => { })
 app.on('window-all-closed', (e) => {
