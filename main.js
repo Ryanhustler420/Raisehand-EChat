@@ -3,15 +3,19 @@ const { app, BrowserWindow, Menu, Notification, ipcMain, Tray } = require('elect
 
 const isDevelopment = !app.isPackaged
 let mainWindow;
+let splashWindow;
 
 const dockIcon = path.join(__dirname, 'assets', 'images', 'logo.png')
 const trayIcon = path.join(__dirname, 'assets', 'images', 'skull.png')
 
-function createSecondWindow() {
-    let sec = new BrowserWindow({
-        width: 1200,
-        height: 800,
+function createSplashWindow() {
+    splashWindow = new BrowserWindow({
+        width: 400,
+        height: 200,
         backgroundColor: '#6e707e',
+        frame: false,
+        transparent: true,
+        resizable: false,
         webPreferences: {
             nodeIntegration: false, // prevent html to access the ipcRenderer, so that they can't missuse these function
             contextIsolation: true, // cant override preload file values via console of browser
@@ -20,14 +24,16 @@ function createSecondWindow() {
         }
     })
 
-    sec.loadURL(`file://${__dirname}/second.html`)
-    sec.on('closed', () => { sec = null });
+    splashWindow.loadURL(`file://${__dirname}/splash.html`)
+    splashWindow.on('closed', () => { splashWindow = null });
+    return splashWindow;
 }
 
 function createWindow() {
     mainWindow = new BrowserWindow({
         width: 1200,
         height: 800,
+        show: false,
         backgroundColor: '#6e707e',
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'),
@@ -42,6 +48,7 @@ function createWindow() {
     mainWindow.loadURL(`file://${__dirname}/index.html`)
 
     mainWindow.on('closed', () => { mainWindow = null });
+    return mainWindow;
 }
 
 ipcMain.on('notify', (_, message) => {
@@ -62,8 +69,17 @@ app.whenReady().then(() => {
     tray.setContextMenu(menu); // we can create new menu for this but we're just fine and can use an existing menu instance
     tray.setToolTip('Raisehand EChat');
 
-    createWindow()
-    createSecondWindow()
+    const mainApp = createWindow()
+    const splash = createSplashWindow()
+
+    mainApp.once('ready-to-show', () => {
+        // splash.destroy()
+        // mainApp.show()
+        setTimeout(() => {
+            splash.destroy()
+            mainApp.show()
+        }, 3000)
+    })
 })
 
 if (process.platform === 'darwin') {
