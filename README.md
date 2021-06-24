@@ -136,3 +136,11 @@ It enforces code signing and verifies downloaded applications before allowing th
 > electron-packager . --electron-version="13.1.2" --asar=true
 
 >> Make sure you execute the above command while you are in the root level of the project
+
+## Issues
+
+> (Menu)[https://github.com/electron/electron/issues/2591]
+
+> (Installer)[https://ourcodeworld.com/articles/read/927/how-to-create-a-msi-installer-in-windows-for-an-electron-framework-application]
+
+*Finished (Thanku)*
