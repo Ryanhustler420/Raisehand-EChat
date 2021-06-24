@@ -8,7 +8,7 @@ function createWindow() {
     mainWindow = new BrowserWindow({
         width: 1200,
         height: 800,
-        backgroundColor: 'white',
+        backgroundColor: '#6e707e',
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'),
             nodeIntegration: false, // prevent html to access the ipcRenderer, so that they can't missuse these function
@@ -21,9 +21,6 @@ function createWindow() {
     if (isDevelopment) mainWindow.webContents.openDevTools()
     mainWindow.loadURL(`file://${__dirname}/index.html`)
 
-    // const menuTemplate = Menu.buildFromTemplate([{label: 'File', submenu: [ { label: 'Exit', click: () => { app.exit() } } ]}])
-    // Menu.setApplicationMenu(menuTemplate);
-
     mainWindow.on('closed', () => { mainWindow = null });
 }
 
@@ -35,7 +32,13 @@ ipcMain.on('notify', (_, message) => {
 
 ipcMain.on('app-quit', (e) => app.quit())
 
-app.whenReady().then(() => createWindow())
+app.whenReady().then(() => {
+    const template = require('./utils/Menu').createTemplate(app);
+    const menu = Menu.buildFromTemplate(template);
+    Menu.setApplicationMenu(menu)
+    createWindow()
+})
+
 app.on('ready', (e) => { })
 app.on('window-all-closed', (e) => {
     if (process.platform !== 'darwin') {
